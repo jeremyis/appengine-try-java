@@ -6,12 +6,24 @@
   </head>
   <body>
     <div id="result">Loading...</div>
+    <hr>
+    <form method="POST" action="/demo">
+	    <p>Enter a person:</p>
+	    First Name: <input type="text" name="first"><br>
+	    Last Name: <input type="text" name="last"><br>
+	    <input type="submit" value="submit">
+    </form>
 
     <script>
 $(document).ready(function() {
   $.getJSON('/demo', function(data) {
-    console.log(data);
-    $('#result').html("Hello, " + data.name);
+    var output = "<ul>";
+    for (var i in data) {
+      var person = data[i];
+      output += "<li> " + person.first + " " + person.last + "</li>";
+    }
+    output += "</ul>";
+    $('#result').html("<b>People:</b>\n  " + output  + "</pre>");
   });
 });
     </script>
